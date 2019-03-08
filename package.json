@@ -1,0 +1,18 @@
+{
+  "name": "meteor",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "canvas": "^2.3.1",
+    "express": "^4.16.4",
+    "feed": "^2.0.4",
+    "jsdom": "^13.2.0",
+    "moment": "^2.24.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4"
+  },
+  "scripts": {
+    "test": "NODE_ENV=development nodemon index.js"
+  }
+}
