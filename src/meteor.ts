@@ -1,6 +1,7 @@
+import fs from "fs"
 import Router from "koa-router"
 import axios from "axios"
-import { createConnection, Entity, PrimaryColumn, Column, getRepository } from "typeorm"
+import { createConnection, getRepository } from "typeorm"
 import { Feed } from "feed"
 import { JSDOM } from "jsdom"
 import { Episode } from "./entities/meteor"
@@ -20,10 +21,11 @@ const setup = async () => {
     await createConnection({
         type: "sqlite",
         entities: [Episode],
-        database: "./.data/meteor.db",
+        database: ".data/meteor.db",
         synchronize: true,
         dropSchema: true,
     })
+    console.log(fs.statSync(".data/meteor.db").birthtime)
 }
 setup()
 
