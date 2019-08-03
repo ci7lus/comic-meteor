@@ -6,7 +6,7 @@ export class Episode {
     title: string
 
     @PrimaryColumn()
-    episodeId: number
+    episodeId: string
 
     @Column()
     updatedAt: Date

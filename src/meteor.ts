@@ -63,8 +63,8 @@ router.get("/:title(\\w+).rss2", async ctx => {
                 const linkTag = episodeTable.querySelector('a[target="_blank"]')
                 if (!linkTag) return
                 const link = linkTag.getAttribute("href")!
-                const parsed = link.match(/ptdata\/(\w+)\/(\d+)/)!
-                const episodeId = parseInt(parsed[2])
+                const parsed = link.match(/ptdata\/(\w+)\/([a-zA-Z0-9]+)/)!
+                const episodeId = parsed[2]
                 const titleParts = await Promise.all(
                     episodeTable
                         .querySelector(".work_episode_txt")!
