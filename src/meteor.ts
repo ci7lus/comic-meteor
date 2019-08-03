@@ -23,9 +23,8 @@ const setup = async () => {
         entities: [Episode],
         database: ".data/meteor.db",
         synchronize: true,
-        dropSchema: true,
+        // dropSchema: true,
     })
-    console.log(fs.statSync(".data/meteor.db").birthtime)
 }
 setup()
 
