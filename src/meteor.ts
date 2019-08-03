@@ -1,4 +1,3 @@
-import fs from "fs"
 import Router from "koa-router"
 import axios from "axios"
 import { createConnection, getRepository } from "typeorm"
@@ -16,17 +15,6 @@ const client = axios.create({
         return code < 500
     },
 })
-
-const setup = async () => {
-    await createConnection({
-        type: "sqlite",
-        entities: [Episode],
-        database: ".data/meteor.db",
-        synchronize: true,
-        // dropSchema: true,
-    })
-}
-setup()
 
 const router = new Router<any, any>()
 
