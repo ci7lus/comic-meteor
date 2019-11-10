@@ -25,21 +25,22 @@ router.get("/:title(\\w+).rss2", async ctx => {
     const r = await client.get(titleUri)
     if (r.status != 200) return ctx.throw(r.status)
     const dom = new JSDOM(r.data)
-    const author = (() => {
-        const author = dom.window.document.querySelector("#contents > div.work_episode > div:nth-child(3)")
-        return author ? author.textContent! : "©COMICメテオ"
-    })()
+    let author = "©COMICメテオ"
+    const authorSelector = dom.window.document.querySelector("#contents > div.work_episode > div:nth-child(3)")
+    if (authorSelector) {
+        author = authorSelector.textContent!
+    }
+    let description = ""
+    const descriptionTag = dom.window.document.head.querySelector('meta[name="description"]')
+    if (descriptionTag) {
+        const content = descriptionTag.getAttribute("content")
+        if (content) {
+            description = content
+        }
+    }
     const titleFeed = new Feed({
         title: dom.window.document.title,
-        description: (() => {
-            const descriptionTag = dom.window.document.head.querySelector('meta[name="description"]')
-            if (descriptionTag) {
-                const content = descriptionTag.getAttribute("content")
-                return content ? content : ""
-            } else {
-                return ""
-            }
-        })(),
+        description: description,
         link: titleUri,
         id: titleUri,
         generator: "comic-meteor rss generator",
@@ -64,21 +65,20 @@ router.get("/:title(\\w+).rss2", async ctx => {
                 )
                 if (titleParts.length < 3) return
                 const title = titleParts[1]
-                const updatedAt = await (async () => {
-                    const episode = await repository.findOne({ where: { title: titleId, episodeId: episodeId } })
-                    if (episode) {
-                        return episode.updatedAt
-                    } else {
-                        const newEpisode = await repository.save(
-                            new Episode({
-                                title: titleId,
-                                episodeId: episodeId,
-                                updatedAt: new Date(),
-                            })
-                        )
-                        return newEpisode.updatedAt
-                    }
-                })()
+                let updatedAt
+                const episode = await repository.findOne({ where: { title: titleId, episodeId: episodeId } })
+                if (episode) {
+                    updatedAt = episode.updatedAt
+                } else {
+                    const newEpisode = await repository.save(
+                        new Episode({
+                            title: titleId,
+                            episodeId: episodeId,
+                            updatedAt: new Date(),
+                        })
+                    )
+                    updatedAt = newEpisode.updatedAt
+                }
                 titleFeed.addItem({
                     title: title,
                     id: link,
