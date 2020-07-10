@@ -18,7 +18,7 @@ const app = async () => {
     const app = new Koa()
 
     const router = new Router<any, any>()
-    router.get("/", async ctx => {
+    router.get("/", async (ctx) => {
         ctx.body = createReadStream(`${__dirname}/index.html`)
         ctx.type = "html"
     })

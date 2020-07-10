@@ -1,6 +1,6 @@
 import Router from "koa-router"
 import axios from "axios"
-import { createConnection, getRepository } from "typeorm"
+import { getRepository } from "typeorm"
 import { Feed } from "feed"
 import { JSDOM } from "jsdom"
 import { Episode } from "./entities/meteor"
@@ -11,19 +11,19 @@ const client = axios.create({
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.87 Safari/537.36",
     },
     responseType: "text",
-    validateStatus: code => {
+    validateStatus: (code) => {
         return code < 500
     },
 })
 
 const router = new Router<any, any>()
 
-router.get("/:title(\\w+).rss2", async ctx => {
-    const repository = await getRepository(Episode)
+router.get("/:title(\\w+).rss2", async (ctx) => {
+    const repository = getRepository(Episode)
     const titleId = ctx.params.title
     const titleUri = `https://comic-meteor.jp/${titleId}/`
     const r = await client.get(titleUri)
-    if (r.status != 200) return ctx.throw(r.status)
+    if (r.status !== 200) return ctx.throw(r.status)
     const dom = new JSDOM(r.data)
     let author = "©COMICメテオ"
     const authorSelector = dom.window.document.querySelector("#contents > div.work_episode > div:nth-child(3)")
@@ -49,7 +49,7 @@ router.get("/:title(\\w+).rss2", async ctx => {
     const episodeBox = dom.window.document.querySelector(".work_episode_box")
     if (episodeBox) {
         await Promise.all(
-            Array.from(episodeBox.querySelectorAll(".work_episode_table")).map(async episodeTable => {
+            Array.from(episodeBox.querySelectorAll(".work_episode_table")).map(async (episodeTable) => {
                 const linkTag = episodeTable.querySelector('a[target="_blank"]')
                 if (!linkTag) return
                 const link = linkTag.getAttribute("href")!
@@ -59,7 +59,7 @@ router.get("/:title(\\w+).rss2", async ctx => {
                     episodeTable
                         .querySelector(".work_episode_txt")!
                         .textContent!.split("\n")
-                        .map(async splitted => {
+                        .map(async (splitted) => {
                             return splitted.trim().replace("　", " ")
                         })
                 )
