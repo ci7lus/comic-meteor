@@ -2,16 +2,16 @@ import { Entity, PrimaryColumn, Column } from "typeorm"
 
 @Entity("episodes")
 export class Episode {
-    @PrimaryColumn()
-    title: string
+  @PrimaryColumn()
+  title: string
 
-    @PrimaryColumn()
-    episodeId: string
+  @PrimaryColumn()
+  episodeId: string
 
-    @Column()
-    updatedAt: Date
+  @Column()
+  updatedAt: Date
 
-    constructor(partial: Partial<Episode>) {
-        Object.assign(this, partial)
-    }
+  constructor(partial: Partial<Episode>) {
+    Object.assign(this, partial)
+  }
 }

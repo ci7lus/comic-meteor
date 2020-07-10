@@ -1,31 +1,31 @@
 {
-    "name": "meteor",
-    "version": "1.0.0",
-    "main": "dist/index.js",
-    "license": "MIT",
-    "devDependencies": {
-        "@types/jsdom": "^16.2.3",
-        "@types/koa": "^2.11.3",
-        "@types/koa-router": "^7.4.1",
-        "prettier": "^2.0.5",
-        "ts-node": "^8.10.2",
-        "typescript": "^3.9.6"
-    },
-    "scripts": {
-        "build": "tsc",
-        "start": "ts-node ./src/index.ts",
-        "lint": "prettier --check './src/**/*.ts'",
-        "format": "prettier --write './src/**/*.ts'",
-        "dev": "ts-node src/index.ts"
-    },
-    "dependencies": {
-        "axios": "^0.19.2",
-        "feed": "^4.2.1",
-        "jsdom": "^16.3.0",
-        "koa": "^2.13.0",
-        "koa-router": "^9.1.0",
-        "reflect-metadata": "^0.1.13",
-        "sqlite3": "^5.0.0",
-        "typeorm": "^0.2.25"
-    }
+  "name": "meteor",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jsdom": "^16.2.3",
+    "@types/koa": "^2.11.3",
+    "@types/koa-router": "^7.4.1",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node ./src/index.ts",
+    "lint": "prettier --check './src/**/*.ts'",
+    "format": "prettier --write './src/**/*.ts'",
+    "dev": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "feed": "^4.2.1",
+    "jsdom": "^16.3.0",
+    "koa": "^2.13.0",
+    "koa-router": "^9.1.0",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.0",
+    "typeorm": "^0.2.25"
+  }
 }
