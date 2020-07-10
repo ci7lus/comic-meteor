@@ -1,5 +1,4 @@
 node_modules
-.envrc
-*.log
 .data
 dist
+shrinkwrap.yaml
