@@ -4,6 +4,7 @@ import { getRepository } from "typeorm"
 import { Feed } from "feed"
 import { JSDOM } from "jsdom"
 import { Episode } from "./entities/meteor"
+import moment from "moment"
 
 const client = axios.create({
   headers: {
@@ -50,6 +51,14 @@ router.get("/:title(\\w+).rss2", async (ctx) => {
     generator: "comic-meteor rss generator",
     copyright: author,
   })
+
+  titleFeed.addItem({
+    title: "comic-meteorフィードの登録し直しをお願いします",
+    id: "please-re-register",
+    link: "https://comic-meteor.glitch.me/",
+    date: moment().startOf("week").toDate(),
+  })
+
   const episodeBox = dom.window.document.querySelector(".work_episode_box")
   if (episodeBox) {
     await Promise.all(
